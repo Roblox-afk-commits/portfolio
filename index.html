@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OGGezwin | Protofolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Ultra Dark & Professional Tema Değişkenleri */
+        :root {
+a {
+    text-decoration: none !important;
+    outline: none !important;
+}
+
+.link-btn {
+    text-decoration: none !important;
+    display: inline-block;
+}
+            --bg-base: #020202;
+            --grid-color: rgba(255, 255, 255, 0.015);
+            --card-bg: rgba(15, 15, 15, 0.4);
+            --border-dim: rgba(255, 255, 255, 0.06);
+            --border-glow: rgba(255, 255, 255, 0.3);
+            --text-main: #f4f4f4;
+            --text-dim: #8a8a8a;
+            --accent: #ffffff;
+            --glow-spread: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Özel Seçim Rengi */
+        ::selection {
+            background-color: var(--accent);
+            color: var(--bg-base);
+        }
+
+        /* Özel Kaydırma Çubuğu */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            /* Ultra profesyonel mikro-ızgara arka plan */
+            background-image: 
+                linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: center top;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Arkadaki Derinlik Veren Ortam Işığı */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 80vh;
+            background: radial-gradient(ellipse at top, rgba(25, 25, 25, 0.6) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            padding: 100px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animasyonlu Dil Seçici */
+        .language-selector {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            z-index: 10;
+            animation: fadeDown 1s ease forwards;
+            opacity: 0;
+        }
+
+        select {
+            background: rgba(10, 10, 10, 0.8);
+            color: var(--text-dim);
+            border: 1px solid var(--border-dim);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            cursor: pointer;
+            outline: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        select:hover {
+            color: var(--text-main);
+            border-color: var(--border-glow);
+            box-shadow: 0 0 15px var(--glow-spread);
+        }
+
+        /* Profil Bölümü (Sıralı Animasyonlar) */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 30px;
+            animation: fadeUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        /* Profil Resmi Arkasındaki Holografik Halka */
+        .profile-img-container::before {
+            content: '';
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            z-index: -1;
+            animation: rotateGlow 4s linear infinite;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #000;
+            border: 1px solid rgba(255,255,255,0.1);
+            object-fit: cover;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255,255,255,0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .profile-img-container:hover .profile-img {
+            transform: scale(1.03);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 10px 50px rgba(255, 255, 255, 0.08);
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            margin: 0 0 12px 0;
+            letter-spacing: -1.5px;
+            font-weight: 700;
+            text-shadow: 0 4px 20px rgba(0,0,0,1);
+            animation: fadeUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(90deg, rgba(20,20,20,0.8), rgba(10,10,10,0.8));
+            border: 1px solid var(--border-dim);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 35px;
+            backdrop-filter: blur(10px);
+            animation: fadeUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .badge span {
+            color: var(--accent);
+            animation: blink 1s step-end infinite;
+        }
+
+        p.bio {
+            color: var(--text-dim);
+            line-height: 1.9;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            animation: fadeUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        /* Gelişmiş Siber Butonlar */
+        .links-container {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 45px;
+            flex-wrap: wrap;
+            animation: fadeUp 0.8s ease 0.5s forwards;
+            opacity: 0;
+        }
+
+.link-btn {
+    background-color: rgba(10, 10, 10, 0.5);
+    color: var(--text-main);
+    text-decoration: none !important; /* Alt çizgiyi tamamen yok eder */
+    padding: 14px 32px;
+    border: 1px solid var(--border-dim);
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    display: inline-block; /* Çizginin tamamen kalkması için eklendi */
+}
+
+        .link-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .link-btn:hover::before {
+            left: 100%;
+        }
+
+        .link-btn:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
+            transform: translateY(-4px);
+            color: #fff;
+        }
+
+        /* Portfolyo Bölümü */
+        .portfolio-section {
+            margin-top: 100px;
+            animation: fadeUp 1s ease 0.7s forwards;
+            opacity: 0;
+        }
+
+        .portfolio-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .portfolio-title::before, .portfolio-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-dim), transparent);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        /* Ultra Premium Kart Tasarımı */
+        .card {
+            background: linear-gradient(145deg, rgba(15,15,15,0.6), rgba(5,5,5,0.8));
+            border: 1px solid var(--border-dim);
+            border-radius: 12px;
+            padding: 18px;
+            backdrop-filter: blur(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Kart İçi Hafif Işık Yansıması */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.9), 0 0 20px rgba(255,255,255,0.03);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+            border: 1px solid rgba(0,0,0,0.8);
+            object-fit: cover;
+            opacity: 0.75;
+            transition: all 0.5s ease;
+            filter: grayscale(20%);
+        }
+
+        .card:hover .card-img {
+            opacity: 1;
+            filter: grayscale(0%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .card h3 {
+            margin: 0 0 12px 0;
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+            color: #fff;
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Gelişmiş Animasyonlar */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes blink { 
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; } 
+        }
+
+        /* Mobil Uyum (Responsive) İyileştirmeleri */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.4rem; }
+            .language-selector { top: 20px; right: 20px; }
+            .container { padding: 80px 20px 50px; }
+            .portfolio-title::before, .portfolio-title::after { display: none; }
+            .portfolio-title { justify-content: center; }
+        }
+a, a:hover, a:active, a:visited, a:focus {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    background-image: none !important;
+}
+    </style>
+</head>
+<body>
+
+    <div class="language-selector">
+        <select id="lang-switch" onchange="changeLanguage()">
+            <option value="tr">TR</option>
+            <option value="en">EN</option>
+            <option value="es">ES</option>
+            <option value="de">DE</option>
+            <option value="fr">FR</option>
+        </select>
+    </div>
+
+    <div class="container">
+        
+        <div class="profile-header">
+            <div class="profile-img-container">
+                <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-78A7C66CD32967F6C1A75697448AEDA2-Png/150/150/AvatarHeadshot/Webp/noFilter" alt="Profil Resmi" class="profile-img">
+            </div>
+            
+            <h1 data-key="name">OGGezwin</h1>
+            <div class="badge">ROBLOX GUI DESIGNER<span></span></div>
+            
+            <p class="bio" data-key="bio">
+                Modern, temiz ve kullanıcı odaklı Roblox arayüzleri tasarlıyorum. Performans ve estetiği bir araya getiren tasarımlar için benimle iletişime geçin.
+            </p>
+
+            <div class="links-container">
+                <a href="https://discordapp.com/users/1521818641098739825" target="_blank" class="link-btn" data-key="btn_discord">DISCORD KATIL</a>
+                <a href="https://www.roblox.com/tr/users/3194723950/profile" target="_blank" class="link-btn" data-key="btn_roblox">ROBLOX PROFIL</a>
+                <a href="https://devforum.roblox.com/u/OGGezwin/summary" target="_blank" class="link-btn" data-key="btn_devforum">DEVFORUM</a>
+            </div>
+        </div>
+
+        <div class="portfolio-section">
+            <div class="portfolio-title" data-key="portfolio_title">SİSTEM KAYITLARI // TASARIMLAR</div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="Ekran görüntüsü 2026-07-11 191804.png" alt="Proje 1" class="card-img">
+                    <h3 data-key="proj1_title">Simulator Shop UI</h3>
+                    <p data-key="proj1_desc">Modern ve temiz dükkan arayüzü tasarımı. Yüksek oyuncu etkileşimi için optimize edildi.</p>
+                </div>
+
+                <div class="card">
+                    <img src="Ekran_goruntusu_2026-07-11_192035.png" alt="Proje 2" class="card-img">
+                    <h3 data-key="proj2_title">STUDS HUD Design</h3>
+                    <p data-key="proj2_desc">Bloxstrap esintili minimalist oyun içi ekranı. Düşük gecikme ve karanlık mod uyumlu.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const translations = {
+            tr: {
+                "name": "OGGezwin",
+                "bio": "Modern, temiz ve kullanıcı odaklı Roblox arayüzleri tasarlıyorum. Performans ve estetiği bir araya getiren tasarımlar için benimle iletişime geçin.",
+                "btn_discord": "DISCORD KATIL",
+                "btn_roblox": "ROBLOX PROFIL",
+                "btn_devforum": "DEVFORUM",
+                "portfolio_title": "SİSTEM KAYITLARI // TASARIMLAR",
+                "proj1_title": "Simulator Shop UI",
+                "proj1_desc": "Modern ve temiz dükkan arayüzü tasarımı. Yüksek oyuncu etkileşimi için optimize edildi.",
+                "proj2_title": "FPS HUD Design",
+                "proj2_desc": "Bloxstrap esintili minimalist oyun içi ekranı. Düşük gecikme ve karanlık mod uyumlu."
+            },
+            en: {
+                "name": "OGGezwin",
+                "bio": "I design modern, clean, and user-centric Roblox interfaces. Contact me for designs that combine performance and aesthetics.",
+                "btn_discord": "JOIN DISCORD",
+                "btn_roblox": "ROBLOX PROFILE",
+                "btn_devforum": "DEVFORUM",
+                "portfolio_title": "SYSTEM LOGS // DESIGNS",
+                "proj1_title": "Simulator Shop UI",
+                "proj1_desc": "Modern and clean shop interface design. Optimized for high player retention.",
+                "proj2_title": "FPS HUD Design",
+                "proj2_desc": "Bloxstrap inspired minimalist in-game screen. Low latency and dark mode ready."
+            },
+            es: {
+                "name": "OGGezwin",
+                "bio": "Diseño interfaces de Roblox modernas, limpias y centradas en el usuario. Contáctame para diseños que combinan rendimiento y estética.",
+                "btn_discord": "UNIRSE DISCORD",
+                "btn_roblox": "PERFIL ROBLOX",
+                "btn_devforum": "DEVFORUM",
+                "portfolio_title": "REGISTROS // DISEÑOS",
+                "proj1_title": "Simulator Shop UI",
+                "proj1_desc": "Diseño de interfaz de tienda moderno y limpio. Optimizado para alta interacción.",
+                "proj2_title": "FPS HUD Design",
+                "proj2_desc": "Pantalla minimalista inspirada en Bloxstrap. Baja latencia y modo oscuro."
+            },
+            de: {
+                "name": "OGGezwin",
+                "bio": "Ich entwerfe moderne, saubere und benutzerorientierte Roblox-Schnittstellen. Kontaktieren Sie mich für Designs, die Leistung und Ästhetik verbinden.",
+                "btn_discord": "DISCORD BEITRETEN",
+                "btn_roblox": "ROBLOX PROFIL",
+                "btn_devforum": "DEVFORUM",
+                "portfolio_title": "SYSTEMPROTOKOLLE // DESIGNS",
+                "proj1_title": "Simulator Shop UI",
+                "proj1_desc": "Modernes und sauberes Shop-Interface-Design. Optimiert für hohe Spielerbindung.",
+                "proj2_title": "FPS HUD Design",
+                "proj2_desc": "Bloxstrap inspiriertes minimalistisches In-Game-Design. Niedrige Latenz."
+            },
+            fr: {
+                "name": "OGGezwin",
+                "bio": "Je conçois des interfaces Roblox modernes, épurées et centrées sur l'utilisateur. Contactez-moi pour des designs alliant performance et esthétique.",
+                "btn_discord": "REJOINDRE DISCORD",
+                "btn_roblox": "PROFIL ROBLOX",
+                "btn_devforum": "DEVFORUM",
+                "portfolio_title": "JOURNAUX SYSTÈME // DESIGNS",
+                "proj1_title": "Simulator Shop UI",
+                "proj1_desc": "Design d'interface de boutique moderne et épuré. Optimisé pour l'interaction.",
+                "proj2_title": "FPS HUD Design",
+                "proj2_desc": "Écran en jeu minimaliste inspiré de Bloxstrap. Faible latence et mode sombre."
+            }
+        };
+
+        function changeLanguage() {
+            const lang = document.getElementById("lang-switch").value;
+            const elements = document.querySelectorAll("[data-key]");
+            
+            elements.forEach(element => {
+                const key = element.getAttribute("data-key");
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+    </script>
+</body>
+</html>
